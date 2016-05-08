@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface UserReponsitory extends CrudRepository<User,Long>,UserReponsitoryAdvance {
     public List<User> findAll();
+    public User findByName(String name);
 }
