@@ -3,6 +3,9 @@ package com.data.servive;
 import com.data.core.logic.UserReponsitory;
 import com.data.core.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,10 @@ public class UserService {
     UserReponsitory userReponsitory;
 
     public List<User> findAll(){
-        return userReponsitory.findAll();
+
+        //return userReponsitory.findAll();
+    }
+    Page<User> findAll(Specification<Long> spec, Pageable pageable){
+
     }
 }

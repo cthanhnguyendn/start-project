@@ -6,7 +6,7 @@ import { setLocale } from 'reducers/locale';
 import counterpart from 'counterpart';
 import { locales } from 'config/translation';
 
-//import 'stylus/main.styl';
+import '../../assets/stylus/main.styl';
 
 var LocaleSwitcher = ({currentLocale, onLocaleChange}) => (
   <select value={currentLocale} onChange={e => onLocaleChange(e.target.value)}>
