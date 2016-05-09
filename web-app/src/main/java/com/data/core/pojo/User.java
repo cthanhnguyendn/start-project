@@ -17,12 +17,20 @@ public class User implements Serializable{
     private String lastName;
     private String name;
     private String password;
+    private String token;
+    private boolean authenticated;
 
     protected User() {}
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public User(String username, String token, boolean isAuthen) {
+        this.name = username;
+        this.token = token;
+        this.authenticated = isAuthen;
     }
 
     @Override

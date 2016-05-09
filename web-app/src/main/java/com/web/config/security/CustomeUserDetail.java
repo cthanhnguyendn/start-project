@@ -16,6 +16,7 @@ public class CustomeUserDetail implements UserDetails {
     User user;
 
     public CustomeUserDetail(User user) {
+
         this.user = user;
     }
 
