@@ -28,8 +28,8 @@ export default function reducer(state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isAuthenticated: action.result.data.authenticated,
-        username: action.result.data.userName,
+        isAuthenticated: true,
+        username: action.user.name,
         errorMessage: null
       };
     case LOGIN_FAIL:
@@ -37,7 +37,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         username: null,
-        errorMessage: action.error.data.messageKey
+        errorMessage: action.errorMessage
       };
     case LOGOUT_SUCCESS:
       return {
@@ -53,8 +53,8 @@ export default function reducer(state = initialState, action) {
     case GET_SESSION_SUCCESS:
       return {
         ...state,
-        isAuthenticated: action.result.data.authenticated || false,
-        username: action.result.data.userName,
+        isAuthenticated: true,
+        username: action.user.name,
         errorMessage: null,
         loading: false
       };
@@ -86,7 +86,7 @@ export function login(username, password) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
     promise: (client) => client({
-      url:"/api/session",
+      url:"/api/user",
       data:{username, password},
       headers: {'Authorization':'Basic '+(new Buffer(username+':'+password).toString('base64'))}
     }),
@@ -111,7 +111,7 @@ export function logout() {
 export function getSession() {
   return {
     types: [GET_SESSION, GET_SESSION_SUCCESS, GET_SESSION_FAIL],
-    promise: (client) => client.get('/api/session')
+    promise: (client) => client.get('/api/user')
   };
 }
 

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Form, TextInput, Label } from 'react-easy-form';
+import React, { Component ,PropTypes} from 'react';
 import Translate from 'react-translate-component';
+import {reduxForm} from 'redux-form';
+import {login} from '../../reducers/authentication';
 
 const LabeledInput = (props) => (
   <div className="pure-control-group">
@@ -15,35 +16,64 @@ const ErrorPanel = ({messageKey}) => (
     <Translate content={messageKey} />
   </p>
 );
-
-export default class LoginForm extends Component {
+const submit = (values, dispatch) => {
+    const { username, password } = values;
+    return new Promise((resolve, reject) => {
+        if(!username){
+            reject({username:"Nhập User Name",_error: 'Login failed!'});
+        }else if(!password){
+            reject({password:"Nhập Password",_error: 'Login failed!'});
+        }else {
+            dispatch(login(username, password));
+        }
+    })
+}
+const fields =["username","password"]
+class LoginForm extends Component {
 
   render() {
-    const {errorMessage} = this.props;
-    const errorPanel = errorMessage ? <ErrorPanel messageKey={errorMessage}/> : null;
+      const { fields: { username, password }, error, resetForm, handleSubmit, submitting } = this.props
     return (
       <div>
-        <Translate component="h2" content="login.title" />
-
-        <Translate component="p" content="login.hint" />
-
-        {errorPanel}
-
-        <Form ref="form" initialData={{}} onSubmit={(formData) => this.handleSubmit(formData)} className="pure-form pure-form-aligned">
-          <LabeledInput label="Login" name="username"/>
-          <LabeledInput label="Password" name="password" type="password"/>
-
-          <div className="pure-controls">
-            <button type="submit" className="pure-button pure-button-primary">Login</button>
-          </div>
-        </Form>
+        <form onSubmit={handleSubmit(submit)} className="pure-form pure-form-aligned">
+            <div>
+                <label>Username</label>
+                <div>
+                    <input type="text" placeholder="Username" {...username}/>
+                </div>
+                {username.touched && username.error && <div>{username.error}</div>}
+            </div>
+            <div>
+                <label>Password</label>
+                <div>
+                    <input type="password" placeholder="Password" {...password}/>
+                </div>
+                {password.touched && password.error && <div>{password.error}</div>}
+            </div>
+            {error && <div>{error}</div>}
+            <div>
+                <button type="submit" disabled={submitting}>
+                    {submitting ? <i/> : <i/>} Log In
+                </button>
+                <button type="button" disabled={submitting} onClick={resetForm}>
+                    Clear Values
+                </button>
+            </div>
+        </form>
       </div>
     );
   }
 
   handleSubmit(formData) {
-    const { username, password } = formData;
-    const { login } = this.props;
-    login(username, password);
+
   }
+
 }
+LoginForm.propTypes = {
+    fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    resetForm: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired
+}
+export default reduxForm("loginForm",fields,LoginForm);

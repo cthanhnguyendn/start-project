@@ -19,8 +19,6 @@ public class HomeController {
     UserService userService;
     @RequestMapping("/")
     String index(){
-        List<User> userList = userService.findAll();
-
         return "index";
     }
 }

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserReponsitoryAdvanceImp extends AbstractRepository<User,Long> implements UserReponsitoryAdvance{
+
 }
