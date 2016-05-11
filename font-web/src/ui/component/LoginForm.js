@@ -3,19 +3,6 @@ import Translate from 'react-translate-component';
 import {reduxForm} from 'redux-form';
 import {login} from '../../reducers/authentication';
 
-const LabeledInput = (props) => (
-  <div className="pure-control-group">
-    <Label value={props.label} position="before">
-      <TextInput {...props}/>
-    </Label>
-  </div>
-);
-
-const ErrorPanel = ({messageKey}) => (
-  <p className="error-panel">
-    <Translate content={messageKey} />
-  </p>
-);
 const submit = (values, dispatch) => {
     const { username, password } = values;
     return new Promise((resolve, reject) => {
@@ -25,12 +12,12 @@ const submit = (values, dispatch) => {
             reject({password:"Nhập Password",_error: 'Login failed!'});
         }else {
             dispatch(login(username, password));
+            resolve()
         }
     })
 }
 const fields =["username","password"]
 class LoginForm extends Component {
-
   render() {
       const { fields: { username, password }, error, resetForm, handleSubmit, submitting } = this.props
     return (
@@ -63,11 +50,6 @@ class LoginForm extends Component {
       </div>
     );
   }
-
-  handleSubmit(formData) {
-
-  }
-
 }
 LoginForm.propTypes = {
     fields: PropTypes.object.isRequired,
@@ -76,4 +58,4 @@ LoginForm.propTypes = {
     resetForm: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired
 }
-export default reduxForm("loginForm",fields,LoginForm);
+export default reduxForm({form:"loginForm",fields})(LoginForm);

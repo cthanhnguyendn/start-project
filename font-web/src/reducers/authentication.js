@@ -37,13 +37,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         username: null,
-        errorMessage: action.errorMessage
+        errorMessage: action.errorMessage,
+        loading: false
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
-        username: null
+        username: null,
+        loading: false
       };
     case GET_SESSION:
       return {
@@ -88,7 +90,9 @@ export function login(username, password) {
     promise: (client) => client({
       url:"/api/user",
       data:{username, password},
-      headers: {'Authorization':'Basic '+(new Buffer(username+':'+password).toString('base64'))}
+      headers: {
+        'Authorization':'Basic '+(new Buffer(username+':'+password).toString('base64')),
+        'X-Requested-With':'XMLHttpRequest',"WWW-Authenticate" : "Basic realm= Baeldung"}
     }),
     afterSuccess: (dispatch, getState, response) => {
       localStorage.setItem('auth-token', response.headers['x-auth-token']);
@@ -101,7 +105,7 @@ export function login(username, password) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.delete('/api/session'),
+    promise: (client) => client.delete('/api/user'),
     afterSuccess: () => {
       browserHistory.push('login');
     }

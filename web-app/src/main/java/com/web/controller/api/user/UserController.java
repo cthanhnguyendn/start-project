@@ -30,8 +30,8 @@ public class UserController {
     }
     @RequestMapping("/api/user")
     public ResponseEntity<CustomeUserDetail> getUser(Authentication authentication) {
-        if(authentication.getPrincipal()==null){
-            return new ResponseEntity<CustomeUserDetail>(HttpStatus.UNAUTHORIZED);
+        if(authentication==null){
+            return new ResponseEntity<CustomeUserDetail>(HttpStatus.FORBIDDEN);
         }
         CustomeUserDetail userDetails = (CustomeUserDetail) authentication.getPrincipal();
         return new ResponseEntity<CustomeUserDetail>(userDetails, HttpStatus.OK);

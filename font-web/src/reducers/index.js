@@ -6,7 +6,7 @@ import { routerReducer as routing } from 'react-router-redux';
 import {reducer as formReducer} from 'redux-form';
 
 export default combineReducers({
-  formReducer,
+  form:formReducer,
   simple,
   authentication,
   locale,

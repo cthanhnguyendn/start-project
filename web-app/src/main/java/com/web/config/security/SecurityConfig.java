@@ -22,7 +22,8 @@ import org.springframework.session.web.http.HttpSessionStrategy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JPAUserdetailService jpaUserdetailService;
-
+	@Autowired
+	CustomeBasicAuthenticationEntryPoint customeBasicAuthenticationEntryPoint;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.requestCache()
 				.requestCache(new NullRequestCache())
 				.and()
-				.httpBasic();
+				.httpBasic().authenticationEntryPoint(customeBasicAuthenticationEntryPoint);
 	}
 
 	@Bean

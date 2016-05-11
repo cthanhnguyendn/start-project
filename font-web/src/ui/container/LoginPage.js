@@ -1,2 +1,2 @@
-import LoginForm from 'component/LoginForm';
+import LoginForm from '../component/LoginForm';
 export default LoginForm;
