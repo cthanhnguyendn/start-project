@@ -3,7 +3,6 @@ import { displayAuthError } from 'reducers/authentication';
 
 const setupAxiosInterceptors = onUnauthenticated => {
   const onRequestSuccess = config => {
-    debugger;
     var token = localStorage.getItem('auth-token');
     if (token) {
       config.headers['x-auth-token'] = token;

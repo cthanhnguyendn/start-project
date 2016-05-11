@@ -29,11 +29,10 @@ public class UserController {
         return new ResponseEntity<Page<User>>(pageResult, HttpStatus.OK);
     }
     @RequestMapping("/api/user")
-    public ResponseEntity<CustomeUserDetail> getUser(Authentication authentication) {
+    public ResponseEntity<Object> getUser(Authentication authentication) {
         if(authentication==null){
-            return new ResponseEntity<CustomeUserDetail>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<Object>(HttpStatus.FORBIDDEN);
         }
-        CustomeUserDetail userDetails = (CustomeUserDetail) authentication.getPrincipal();
-        return new ResponseEntity<CustomeUserDetail>(userDetails, HttpStatus.OK);
+        return new ResponseEntity<Object>(authentication.getPrincipal(), HttpStatus.OK);
     }
 }

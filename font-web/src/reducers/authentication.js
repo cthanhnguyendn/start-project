@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        username: action.user.name,
+        username: action.result.data.user.name,
         errorMessage: null
       };
     case LOGIN_FAIL:
@@ -56,7 +56,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        username: action.user.name,
+        username: action.result.data.user.name,
         errorMessage: null,
         loading: false
       };
