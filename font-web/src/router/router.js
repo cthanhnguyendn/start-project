@@ -6,6 +6,7 @@ import SimpleListComponent from 'container/SimpleListComponent';
 import PrivatePage from 'container/PrivatePage';
 import LoginForm from '../ui/component/LoginForm';
 import privateRoute from 'router/privateRoute';
+import UserManagementPage from '../ui/container/UserManagementPage'
 
 export default (onLogout) => (
   <Route path="/" name="app" component={App}>
@@ -13,5 +14,6 @@ export default (onLogout) => (
     <Route path="private" component={privateRoute(PrivatePage)}/>
     <Route path="login" component={LoginForm}/>
     <Route path="logout" onEnter={onLogout}/>
+    <Route path="users" component={UserManagementPage}/>
   </Route>
 );

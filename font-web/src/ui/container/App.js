@@ -41,7 +41,8 @@ export class App extends Component {
     const menuItems = [
       {label: 'Home', link: '/'},
       this.props.isAuthenticated ? {label: 'Logout', link: '/logout'} : {label: 'Login', link: '/login'},
-      {label: 'Private page', link: '/private'}
+      {label: 'Private page', link: '/private'},
+        {label: 'User Management', link: '/users'}
     ];
 
     return (
