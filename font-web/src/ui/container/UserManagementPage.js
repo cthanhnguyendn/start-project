@@ -5,17 +5,36 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loadUser} from '../../reducers/users'
 
-const UserManagementPage = React.createClass({
+var UserManagementPage = React.createClass({
     componentDidMount() {
-        this.props.loadUser();
+        this.props.dispatch(loadUser({}));
     },
     render() {
-
-
         return (
-            <div>User Management</div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>password</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.listUser.map((item)=>{
+                        return(<tr>
+                                <td>{item.id}</td>
+                                <td>{item.name}</td>
+                                <td>{item.password}</td>
+                            </tr>)
+                    })}
+                    </tbody>
+                </table>
+
+            </div>
+
         );
     }
 });
 
-export default connect((state)=>(state.users),(loadUser))(UserManagementPage)
+export default connect(state=>state.users)(UserManagementPage)

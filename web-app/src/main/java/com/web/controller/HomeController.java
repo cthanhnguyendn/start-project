@@ -20,7 +20,8 @@ import java.util.List;
 public class HomeController {
     @Autowired
     UserService userService;
-    @RequestMapping("/")
+    @RequestMapping({
+            "/","/users"})
     String index(){
         return "index";
     }

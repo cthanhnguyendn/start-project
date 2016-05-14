@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public User findByName(String name) {
-        return userReponsitory.findByName(name);
+        return userReponsitory.findByUserName(name);
     }
 
 }

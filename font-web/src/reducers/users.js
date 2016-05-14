@@ -4,7 +4,7 @@
 import RestAPI from '../utils/RestAPI'
 const FETCHING = "USERS_FETCHING"
 const EXCUTED_SUCCSESS = "USERS_EXCUTED_SUCCSESS"
-export default (state = {},action)=>{
+export default (state = {listUser:[]},action)=>{
     switch (action.type){
         case FETCHING:{
             return {
@@ -19,6 +19,7 @@ export default (state = {},action)=>{
             }
         }
         default:{
+            var sd;
             return state;
         }
     }
@@ -26,10 +27,12 @@ export default (state = {},action)=>{
 export const loadUser = (command)=>{
     return{
         types: [FETCHING, EXCUTED_SUCCSESS],
-        promise:(client)=>{
+        promise:(client)=>(
             client({
-                url:RestAPI.users_manager
+                method: 'post',
+                url:RestAPI.users_manager,
+                data:command
             })
-        }
+        )
     }
 }

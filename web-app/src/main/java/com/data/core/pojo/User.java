@@ -2,6 +2,7 @@ package com.data.core.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * Created by THANHBEO on 5/5/2016.
@@ -15,8 +16,10 @@ public class User implements Serializable{
     private long id;
     private String firstName;
     private String lastName;
-    private String name;
+    private String userName;
     private String password;
+    private Timestamp createdDate;
+    private Timestamp modifiedDate;
     private String token;
     private boolean authenticated;
 
@@ -27,8 +30,8 @@ public class User implements Serializable{
         this.lastName = lastName;
     }
 
-    public User(String username, String token, boolean isAuthen) {
-        this.name = username;
+    public User(String userName, String token, boolean isAuthen) {
+        this.userName = userName;
         this.token = token;
         this.authenticated = isAuthen;
     }
@@ -40,12 +43,12 @@ public class User implements Serializable{
                 id, firstName, lastName);
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -82,5 +85,21 @@ public class User implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Timestamp getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Timestamp modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
 }

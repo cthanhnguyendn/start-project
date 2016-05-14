@@ -13,5 +13,5 @@ import java.util.List;
  * Created by THANHBEO on 5/5/2016.
  */
 public interface UserReponsitory extends CrudRepository<User,Long>,UserReponsitoryAdvance,JpaSpecificationExecutor<User> {
-    public User findByName(String name);
+    public User findByUserName(String userName);
 }

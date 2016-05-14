@@ -1,6 +1,8 @@
-package com.web.config.security;
+package com.web.config.security.redis;
 
 import com.data.core.logic.UserReponsitory;
+import com.web.config.security.CustomeBasicAuthenticationEntryPoint;
+import com.web.config.security.JPAUserdetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +18,9 @@ import org.springframework.security.web.savedrequest.NullRequestCache;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
 import org.springframework.session.web.http.HttpSessionStrategy;
 
-@Configuration
-@EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+//@Configuration
+//@EnableWebSecurity
+//@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JPAUserdetailService jpaUserdetailService;

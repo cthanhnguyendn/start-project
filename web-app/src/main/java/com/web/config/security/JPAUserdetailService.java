@@ -20,7 +20,7 @@ public class JPAUserdetailService implements UserDetailsService {
     UserReponsitory userReponsitory;
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user =  userReponsitory.findByName(name);
+        User user =  userReponsitory.findByUserName(name);
         if(user==null){
             throw new UsernameNotFoundException("User not found");
         }
