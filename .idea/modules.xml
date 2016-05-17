@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/web-app/gs-rest-service.iml" filepath="$PROJECT_DIR$/web-app/gs-rest-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/start-project.iml" filepath="$PROJECT_DIR$/start-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/start-project.iml" filepath="$PROJECT_DIR$/.idea/modules/start-project.iml" />
     </modules>
   </component>

@@ -17,7 +17,7 @@ var UserManagementPage = React.createClass({
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>name</th>
+                            <th>user name</th>
                             <th>password</th>
                         </tr>
                     </thead>
@@ -25,7 +25,7 @@ var UserManagementPage = React.createClass({
                     {this.props.content.map((item)=>{
                         return(<tr>
                                 <td>{item.id}</td>
-                                <td>{item.name}</td>
+                                <td>{item.userName}</td>
                                 <td>{item.password}</td>
                             </tr>)
                     })}

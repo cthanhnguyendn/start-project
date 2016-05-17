@@ -45,7 +45,6 @@ public class AbstractResponse<T> {
         errors.getAllErrors().stream().forEach((item)->{
             Map<String,String> error= new HashMap<>();
             error.put(item.getCode(),item.getDefaultMessage());
-            error.put("_error",message);
             errorsFields.add(error);
         });
     }

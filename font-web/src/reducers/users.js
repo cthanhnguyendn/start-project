@@ -54,22 +54,26 @@ export const loadUser = (command)=> {
 }
 export const submitUser = (values, dispatch)=> {
     return new Promise((resolve, reject)=> {
-        resolve();
+
         dispatch({
             types: [FETCHING, EXCUTED_EDIT_SUCCSESS,REQUEST_FAILD],
-            promise: (client)=> (
-                client({
+            promise: (client)=> {
+
+                return client({
                     method: 'post',
                     url: RestAPI.users_edit,
                     data: {crudAction:"insert-update",pojo:values}
-                })),
+                })},
             afterSuccess: (dispatch, getState, reponse)=> {
-
+                resolve();
+                dispatch(loadUser({}));
             },
             afterError:(dispatch, getState, reponse)=>{
                 if(reponse.status==400){
-                    reject({ userName: 'User does not exist', _error: 'Login failed!' })
-                    reponse.data.errorsFields.forEach((item)=>{reject(item)})
+                    var errorJson = reponse.data.errorsFields.reduce((last,item)=>{
+                        return {...last,...item}
+                    },{})
+                    reject(errorJson)
                 }
             }
         })

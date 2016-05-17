@@ -28,7 +28,7 @@ public class UserValidator implements Validator{
         //ValidationUtils.rejectIfEmpty(errors,"pojo.email","pojo.userName","Require");
         if(userCommand.getPojo()!=null){
             if(userService.isDuplicated("userName",userCommand.getPojo().getUserName())){
-                errors.reject("pojo.userName","Duplicated");
+                errors.reject("userName","Duplicated");
             }
         }
     }
