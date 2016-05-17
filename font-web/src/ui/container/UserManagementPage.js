@@ -3,11 +3,12 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import {loadUser} from '../../reducers/users'
+import {loadUser,submitUser} from '../../reducers/users'
+import UserForm from '../component/UserForm'
 
 var UserManagementPage = React.createClass({
     componentDidMount() {
-        this.props.dispatch(loadUser({}));
+        this.props.loadUser({});
     },
     render() {
         return (
@@ -21,7 +22,7 @@ var UserManagementPage = React.createClass({
                         </tr>
                     </thead>
                     <tbody>
-                    {this.props.listUser.map((item)=>{
+                    {this.props.content.map((item)=>{
                         return(<tr>
                                 <td>{item.id}</td>
                                 <td>{item.name}</td>
@@ -30,11 +31,11 @@ var UserManagementPage = React.createClass({
                     })}
                     </tbody>
                 </table>
-
+                <UserForm loadUser={this.props.loadUser}/>
             </div>
 
         );
     }
 });
 
-export default connect(state=>state.users)(UserManagementPage)
+export default connect(state=>state.users,{loadUser})(UserManagementPage)

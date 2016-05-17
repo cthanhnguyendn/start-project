@@ -13,7 +13,9 @@ public class AbstractCommand<T> {
 
     Page<T> resultPage;
     Pageable pageable;
+    T pojo;
     List<SearchCriteria> searchParram;
+    String crudAction;
 
     public Page<T> getResultPage() {
         return resultPage;
@@ -37,5 +39,21 @@ public class AbstractCommand<T> {
 
     public void setSearchParram(List<SearchCriteria> searchParram) {
         this.searchParram = searchParram;
+    }
+
+    public T getPojo() {
+        return pojo;
+    }
+
+    public void setPojo(T pojo) {
+        this.pojo = pojo;
+    }
+
+    public String getCrudAction() {
+        return crudAction;
+    }
+
+    public void setCrudAction(String crudAction) {
+        this.crudAction = crudAction;
     }
 }

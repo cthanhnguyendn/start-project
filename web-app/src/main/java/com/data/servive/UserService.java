@@ -33,4 +33,15 @@ public class UserService {
         return userReponsitory.findByUserName(name);
     }
 
+    public User findById(Long Id) {
+        return userReponsitory.findById(Id);
+    }
+
+    public boolean isDuplicated(String field, String value) {
+        return userReponsitory.checkDuplicatedByField(field,value);
+    }
+
+    public User saveOrUpdate(User pojo) {
+        return  userReponsitory.save(pojo);
+    }
 }
