@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var jeet = require('jeet');
+var nib = require('nib');
 
 module.exports = {
   devtool: 'source-map',
@@ -7,7 +9,7 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, '../Back/src/main/resources/static/dist'),
+    path: path.join(__dirname, '../web-app/src/main/resources/static/dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
@@ -29,6 +31,15 @@ module.exports = {
       test: /\.js$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }]
+    }, {
+      test: /\.styl$/,
+      loaders: ['style-loader', 'css-loader', 'stylus-loader']
+    },{
+      test: /\.json/,
+      loaders: ['json-loader']
+    },
+    ],stylus: {
+      use: [jeet(), nib()]
+    }
   }
 };

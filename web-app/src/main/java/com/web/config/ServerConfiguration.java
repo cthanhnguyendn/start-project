@@ -32,13 +32,5 @@ import java.util.List;
 @EntityScan("com.data.core.pojo")
 @ComponentScan("com.data")
 public class ServerConfiguration extends WebMvcAutoConfiguration {
-    @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return new EmbeddedServletContainerCustomizer() {
-            @Override
-            public void customize(ConfigurableEmbeddedServletContainer container) {
-                container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/templates/index.html"));
-            }
-        };
-    }
+
 }
