@@ -62,4 +62,17 @@ public class UserController {
         }
         return new ResponseEntity<Object>(authentication.getPrincipal(), HttpStatus.OK);
     }
+    @RequestMapping("/api/register")
+    public ResponseEntity<UserResponse> register(@RequestBody UserCommand userCommand, BindingResult result) {
+        UserResponse response = new UserResponse();
+        userValidator.validate(userCommand,result);
+        if(!result.hasErrors()){
+            User user = userService.registerUser(userCommand.getPojo());
+            response.setPojo(user);
+        }else{
+            response.parseValidateErrors(result, "Create User Fail");
+            return new ResponseEntity<UserResponse>(response,HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<UserResponse>(response,HttpStatus.OK);
+    }
 }

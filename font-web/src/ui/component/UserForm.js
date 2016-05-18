@@ -34,7 +34,7 @@ const UserForm = React.createClass({
                   </tr>
                   <tr>
                       <td>Password:</td>
-                      <td><input placeholder="Password" {...password}/>
+                      <td><input type="password" placeholder="Password" {...password}/>
                           {password.touched && password.error && <div>{password.error}</div>}
                       </td>
                   </tr>

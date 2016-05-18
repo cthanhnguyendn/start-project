@@ -7,6 +7,7 @@ import PrivatePage from 'container/PrivatePage';
 import LoginForm from '../ui/component/LoginForm';
 import privateRoute from 'router/privateRoute';
 import UserManagementPage from '../ui/container/UserManagementPage'
+import RegisterPage from '../ui/container/RegisterPage'
 
 export default (onLogout) => (
   <Route path="/" name="app" component={App}>
@@ -15,5 +16,6 @@ export default (onLogout) => (
     <Route path="login" component={LoginForm}/>
     <Route path="logout" onEnter={onLogout}/>
     <Route path="users" component={UserManagementPage}/>
+    <Route path="register" component={RegisterPage}/>
   </Route>
 );

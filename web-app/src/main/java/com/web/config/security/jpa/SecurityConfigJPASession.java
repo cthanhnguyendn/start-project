@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.session.ExpiringSession;
 import org.springframework.session.SessionRepository;
@@ -24,41 +26,53 @@ import org.springframework.session.web.http.SessionRepositoryFilter;
 @EnableWebSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfigJPASession extends WebSecurityConfigurerAdapter {
-	@Autowired
-	JPAUserdetailService jpaUserdetailService;
-	@Autowired
-	CustomeBasicAuthenticationEntryPoint customeBasicAuthenticationEntryPoint;
-//	@Autowired
+    @Autowired
+    JPAUserdetailService jpaUserdetailService;
+    @Autowired
+    CustomeBasicAuthenticationEntryPoint customeBasicAuthenticationEntryPoint;
+
+    //	@Autowired
 //	SessionRepository<ExpiringSession> sessionRepository;
-	@Bean
-	public HttpSessionStrategy httpSessionStrategy() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-		return new HeaderHttpSessionStrategy();
-	}
-	@Bean
-	public SessionRepository<ExpiringSession> sessionRepository() {
+    @Bean
+    public HttpSessionStrategy httpSessionStrategy() {
 
-		return new JPASessionRepository(10);
-	}
-	@Bean
-	public AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
-	}
-	@Override
-	protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-		builder.userDetailsService(jpaUserdetailService);
-	}
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		//SessionRepositoryFilter<ExpiringSession> sessionSessionRepositoryFilter = new SessionRepositoryFilter<>(sessionRepository);
-		http
-				.authorizeRequests()
-				.antMatchers("/api/user").permitAll()
-				.antMatchers("/api/**").authenticated()
-				.and().csrf().disable()
-				.requestCache().and()
-				//.addFilterBefore(sessionSessionRepositoryFilter, ChannelProcessingFilter.class)
-				.httpBasic().authenticationEntryPoint(customeBasicAuthenticationEntryPoint);
-	}
+        return new HeaderHttpSessionStrategy();
+    }
+
+    @Bean
+    public SessionRepository<ExpiringSession> sessionRepository() {
+        return new JPASessionRepository(10);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(jpaUserdetailService)
+        .passwordEncoder(passwordEncoder());
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //SessionRepositoryFilter<ExpiringSession> sessionSessionRepositoryFilter = new SessionRepositoryFilter<>(sessionRepository);
+        http
+                .authorizeRequests()
+                .antMatchers("/api/user").permitAll()
+                .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/**").authenticated()
+                .and().csrf().disable()
+                .requestCache().and()
+                //.addFilterBefore(sessionSessionRepositoryFilter, ChannelProcessingFilter.class)
+                .httpBasic().authenticationEntryPoint(customeBasicAuthenticationEntryPoint);
+    }
 
 }

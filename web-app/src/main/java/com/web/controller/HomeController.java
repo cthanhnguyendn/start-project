@@ -21,7 +21,7 @@ public class HomeController {
     @Autowired
     UserService userService;
     @RequestMapping({
-            "/","/users"})
+            "/","/users","/register","/login"})
     String index(){
         return "index";
     }

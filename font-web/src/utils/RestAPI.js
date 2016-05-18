@@ -3,5 +3,6 @@
  */
 export default {
     users_list:'api/users/list',
-    users_edit:'api/users/edit'
+    users_edit:'api/users/edit',
+    users_register:'api/register'
 }

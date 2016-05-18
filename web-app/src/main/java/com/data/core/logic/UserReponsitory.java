@@ -15,5 +15,5 @@ import java.util.List;
 public interface UserReponsitory extends CrudRepository<User,Long>,UserReponsitoryCustom,JpaSpecificationExecutor<User> {
     public User findByUserName(String userName);
 
-    User findById(Long id);
+    User findByUserId(Long id);
 }

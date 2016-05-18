@@ -12,8 +12,8 @@ import java.sql.Timestamp;
 public class User implements Serializable{
     public static String PASSWORD_ENCODER="cocacola_app";
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long userId;
     private String firstName;
     private String lastName;
     private String userName;
@@ -40,7 +40,7 @@ public class User implements Serializable{
     public String toString() {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+                userId, firstName, lastName);
     }
 
     public String getUserName() {
@@ -63,12 +63,12 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
