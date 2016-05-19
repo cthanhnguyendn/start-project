@@ -4,7 +4,7 @@
 import React,{PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
 const fields = ["userName","password","repeatPassword"]
-import {submitUser} from '../../reducers/users'
+import {submitUser,innitForm} from '../../reducers/users'
 const validate = values => {
     const errors = {}
     if(values.password!=values.repeatPassword){
@@ -20,37 +20,55 @@ const UserForm = React.createClass({
         resetForm: PropTypes.func.isRequired,
         submitting: PropTypes.bool.isRequired
     },
+    componentDidMount() {
+      this.props.dispatch(innitForm());
+    },
+
   render() {
       const { fields: { userName, password , repeatPassword }, error, resetForm, handleSubmit, submitting } = this.props
     return (
-      <form onSubmit={handleSubmit(submitUser)}>
-          <div>
-              <table>
-                  <tbody>
-                  <tr>
-                      <td>User Name:</td>
-                      <td><input placeholder="User Name" {...userName} />
-                          {userName.touched && userName.error && <div>{userName.error}</div>}</td>
-                  </tr>
-                  <tr>
-                      <td>Password:</td>
-                      <td><input type="password" placeholder="Password" {...password}/>
-                          {password.touched && password.error && <div>{password.error}</div>}
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>Repeat Password:</td>
-                      <td><input type="password" placeholder="Repeat Password" {...repeatPassword}/>
-                          {repeatPassword.touched && repeatPassword.error && <div>{repeatPassword.error}</div>}
-                      </td>
-                  </tr>
-                  </tbody>
+        <fieldset>
+            <div className="ibox">
+                <div className="ibox-title">
+                    <h5>Create new User</h5>
+                </div>
+                <div className="ibox-content">
+                    <form className="form-horizontal" onSubmit={handleSubmit(submitUser)}>
+                        <div className={userName.touched && userName.error?"form-group has-error":"form-group"}>
+                            <label className="col-sm-2">User Name:</label>
+                            <div className="col-sm-10">
+                                <input className="form-control" placeholder="User Name" {...userName} />
+                                {userName.touched && userName.error && <label className="error">{userName.error}</label>}
+                            </div>
+                        </div>
+                        <div className={password.touched && password.error?"form-group has-error":"form-group"}>
+                            <label className="col-sm-2">Password:</label>
+                            <div className="col-sm-10">
+                                <input className="form-control" type="password" placeholder="Password" {...password}/>
+                                {password.touched && password.error && <label className="error">{password.error}</label>}
+                            </div>
+                        </div>
+                        <div className={repeatPassword.touched && repeatPassword.error?"form-group has-error":"form-group"}>
+                            <label className="col-sm-2">Repeat Password:</label>
+                            <div className="col-sm-10">
+                                <input className="form-control" type="password" placeholder="Repeat Password" {...repeatPassword}/>
+                                {repeatPassword.touched && repeatPassword.error && <label className="error">{repeatPassword.error}</label>}
+                            </div>
+                        </div>
+                        <div>
+                            <button className="btn btn-primary" disabled={submitting}>
+                                {submitting?<div className="sk-circle11 sk-circle"></div>:undefined}
+                                Submit
+                            </button>
+                            <button className="btn btn-default" type="button" disabled={submitting} onClick={resetForm} >cancel</button>
+                        </div>
+                    </form>
+                </div>
 
-              </table>
-              <button disabled={submitting}>Submit</button>
-              <button type="button" disabled={submitting} onClick={resetForm} >cancel</button>
-          </div>
-      </form>
+            </div>
+
+        </fieldset>
+
     );
   }
 });

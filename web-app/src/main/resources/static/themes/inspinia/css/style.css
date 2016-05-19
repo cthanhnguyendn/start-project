@@ -3667,12 +3667,12 @@ code {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  background-color: #1AB394;
+  background-color: #ffffff;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
   border-width: 3px 0 0;
-  color: white;
+  color: inherit;
   margin-bottom: 0;
   padding: 14px 15px 7px;
   min-height: 48px;

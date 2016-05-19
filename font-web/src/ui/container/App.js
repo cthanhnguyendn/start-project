@@ -21,12 +21,12 @@ const TopMenu = (props) => {
         </li>
     ));
     return (
-        <nav className="navbar navbar-static-top white-bg" role="navigation" style={{'margin-bottom': 0}}>
+        <nav className="navbar navbar-static-top" role="navigation" style={{'margin-bottom': 0}}>
             <div className="navbar-header">
                 <a className="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i className="fa fa-bars"></i> </a>
                 <form role="search" className="navbar-form-custom" action="http://webapplayers.com/inspinia_admin-v2.3/search_results.html">
                     <div className="form-group">
-                        <input type="text" placeholder="Search for something..." className="form-control" name="top-search" id="top-search"/>
+                        <input style={{height: 47}} type="text" placeholder="Search for something..." className="form-control" name="top-search" id="top-search"/>
                     </div>
                 </form>
             </div>
@@ -50,7 +50,7 @@ export class App extends Component {
             {label: 'Home', link: '/'},
             this.props.isAuthenticated ? {label: 'Logout', link: '/logout'} : {label: 'Login', link: '/login'},
             {label: 'Private page', link: '/private'},
-            {label: 'User Management', link: '/users'},
+            {label: 'User Management', link: '/usersystem/user'},
             {label: 'Register', link: '/register'}
         ];
 
@@ -59,10 +59,6 @@ export class App extends Component {
             <div id="page-wrapper" className="gray-bg dashbard-1">
                 <TopMenu items={menuItems} currentLocale={currentLocale} setLocale={setLocale}/>
                 {this.props.children}
-                {
-                    //    <SmallChatBox />
-                    //    <SmallChat />
-                }
             </div>
 
         </div>

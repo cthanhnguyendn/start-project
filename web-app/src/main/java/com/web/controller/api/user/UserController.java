@@ -1,6 +1,7 @@
 package com.web.controller.api.user;
 
 import com.data.core.pojo.User;
+import com.data.servive.RoleService;
 import com.data.servive.UserService;
 import com.web.command.UserCommand;
 import com.web.reponse.UserResponse;
@@ -26,6 +27,8 @@ public class UserController {
     UserService userService;
     @Autowired
     UserValidator userValidator;
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping("/api/users/list")
     public ResponseEntity<Page<User>> authorized(@RequestBody UserCommand userCommand) {
@@ -40,6 +43,7 @@ public class UserController {
             User userresult = userService.findById(userCommand.getUserId());
             response.setPojo(userresult);
         }
+        response.setListRole(roleService.findAll());
         if (userCommand.getCrudAction()!= null){
             String crudAction = userCommand.getCrudAction();
             if(crudAction.equals("insert-update")){

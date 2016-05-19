@@ -3,6 +3,7 @@ package com.data.core.pojo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by THANHBEO on 5/5/2016.
@@ -22,6 +23,8 @@ public class User implements Serializable{
     private Timestamp modifiedDate;
     private String token;
     private boolean authenticated;
+    @OneToMany(mappedBy = "user")
+    private List<UserRole> roleList;
 
     protected User() {}
 
@@ -101,5 +104,14 @@ public class User implements Serializable{
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+
+    public List<UserRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<UserRole> roleList) {
+        this.roleList = roleList;
     }
 }

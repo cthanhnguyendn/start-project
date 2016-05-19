@@ -5,6 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loadUser,submitUser} from '../../reducers/users'
 import UserForm from '../component/UserForm'
+import UserTable from '../component/app/table/UserTable'
 
 var UserManagementPage = React.createClass({
     componentDidMount() {
@@ -12,30 +13,18 @@ var UserManagementPage = React.createClass({
     },
     render() {
         return (
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>user name</th>
-                            <th>password</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.props.content.map((item)=>{
-                        return(<tr>
-                                <td>{item.id}</td>
-                                <td>{item.userName}</td>
-                                <td>{item.password}</td>
-                            </tr>)
-                    })}
-                    </tbody>
-                </table>
-                <UserForm loadUser={this.props.loadUser}/>
+            <div className="wrapper wrapper-content  animated fadeInRight">
+                <div className="row">
+                    <div className="ibox">
+                        <div className="ibox-content">
+                            <UserTable data={this.props.content}/>
+                            <UserForm loadUser={this.props.loadUser}/>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         );
     }
 });
 
-export default connect(state=>state.users,{loadUser})(UserManagementPage)
+export default connect(state=>state.users, {loadUser})(UserManagementPage)
