@@ -4,6 +4,7 @@ import com.data.core.logic.UserReponsitory;
 import com.data.core.logic.specification.SearchCriteria;
 import com.data.core.logic.specification.UserSpecificationsBuilder;
 import com.data.core.pojo.User;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,15 +31,31 @@ public class UserService {
         UserSpecificationsBuilder<User> specificationsBuilder = new UserSpecificationsBuilder<>(searchCriterias);
         Specification<User> spec = specificationsBuilder.build();
         Page<User> pageUser = userReponsitory.findAll(spec, pageable);
+        fetchPageInfo(pageUser);
         return pageUser;
     }
+
 
     public User findByName(String name) {
         return userReponsitory.findByUserName(name);
     }
 
     public User findById(Long Id) {
-        return userReponsitory.findByUserId(Id);
+        return fetchUserInfo(userReponsitory.findByUserId(Id));
+    }
+    public User findByUserName(String name) {
+        return fetchUserInfo(userReponsitory.findByUserName(name));
+    }
+
+    private User fetchUserInfo(User user) {
+        Hibernate.initialize(user.getRoleList());
+        return user;
+    }
+
+    private void fetchPageInfo(Page<User> pageUser) {
+        pageUser.forEach((user)->{
+            user = fetchUserInfo(user);
+        });
     }
 
     public boolean isDuplicated(String field, String value) {
@@ -61,6 +78,8 @@ public class UserService {
         if (pojo.getUserId()==null){
             pojo.setPassword(passwordEncoder.encode(pojo.getPassword()));
         }
-        return  userReponsitory.save(pojo);
+        return  fetchUserInfo(userReponsitory.save(pojo));
     }
+
+
 }

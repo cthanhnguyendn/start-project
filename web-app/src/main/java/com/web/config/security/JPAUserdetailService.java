@@ -2,6 +2,7 @@ package com.web.config.security;
 
 import com.data.core.logic.UserReponsitory;
 import com.data.core.pojo.User;
+import com.data.servive.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,10 @@ import java.util.Collection;
 @Service
 public class JPAUserdetailService implements UserDetailsService {
     @Autowired
-    UserReponsitory userReponsitory;
+    UserService userService;
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        User user =  userReponsitory.findByUserName(name);
+        User user =  userService.findByUserName(name);
         if(user==null){
             throw new UsernameNotFoundException("User not found");
         }
