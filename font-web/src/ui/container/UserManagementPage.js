@@ -17,7 +17,7 @@ var UserManagementPage = React.createClass({
                 <div className="row">
                     <div className="ibox">
                         <div className="ibox-content">
-                            <UserTable data={this.props.content}/>
+                            <UserTable data={this.props.content} {...this.props}/>
                             <UserForm loadUser={this.props.loadUser}/>
                         </div>
                     </div>

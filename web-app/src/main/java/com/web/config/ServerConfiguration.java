@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolverChain;
 
@@ -32,5 +33,6 @@ import java.util.List;
 @EntityScan("com.data.core.pojo")
 @ComponentScan("com.data")
 public class ServerConfiguration extends WebMvcAutoConfiguration {
+
 
 }

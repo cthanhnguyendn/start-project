@@ -90,7 +90,7 @@ export const submitUser = (values, dispatch)=> {
 }
 export const innitForm = ()=>{
     return {
-        types: [FETCHING, EXCUTED_SUCCSESS,REQUEST_FAILD],
+        types: [FETCHING, EXCUTED_EDIT_SUCCSESS,REQUEST_FAILD],
         promise: (client)=>(
             client({
                 method: 'post',
