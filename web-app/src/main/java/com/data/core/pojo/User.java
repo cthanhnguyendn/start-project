@@ -25,8 +25,14 @@ public class User implements Serializable{
     private boolean authenticated;
     @OneToMany(mappedBy = "user")
     private List<UserRole> roleList;
+    @OneToOne
+    @JoinColumn(name = "user_profile_id")
+    private UserProfile userProfile;
 
-    protected User() {}
+
+    protected User() {
+
+    }
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
@@ -39,11 +45,24 @@ public class User implements Serializable{
         this.authenticated = isAuthen;
     }
 
+
+    public User(Long userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return String.format(
                 "Customer[id=%d, firstName='%s', lastName='%s']",
                 userId, firstName, lastName);
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 
     public String getUserName() {

@@ -1,10 +1,15 @@
 package com.web.controller.api.user;
 
 import com.data.core.pojo.User;
+import com.data.core.pojo.UserProfile;
 import com.data.servive.RoleService;
 import com.data.servive.UserService;
 import com.web.command.UserCommand;
+import com.web.command.UserProfileCommand;
+import com.web.reponse.UserProfileResponse;
 import com.web.reponse.UserResponse;
+import com.web.util.FileService;
+import com.web.validator.UserProfileValidator;
 import com.web.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +33,11 @@ public class UserController {
     @Autowired
     UserValidator userValidator;
     @Autowired
+    UserProfileValidator userProfileValidator;
+    @Autowired
     RoleService roleService;
+    @Autowired
+    FileService fileService;
 
     @RequestMapping("/api/users/list")
     public ResponseEntity<Page<User>> authorized(@RequestBody UserCommand userCommand) {
@@ -39,8 +48,8 @@ public class UserController {
     public ResponseEntity<UserResponse> editUser(@RequestBody UserCommand userCommand, BindingResult result) {
         UserResponse response = new UserResponse();
 
-        if (userCommand.getUserId()!=null){
-            User userresult = userService.findById(userCommand.getUserId());
+        if (userCommand.getPojo()!=null && userCommand.getPojo().getUserId()!=null){
+            User userresult = userService.findById(userCommand.getPojo().getUserId());
             response.setPojo(userresult);
         }
         response.setListRole(roleService.findAll());
@@ -59,6 +68,28 @@ public class UserController {
         }
         return new ResponseEntity<UserResponse>(response,HttpStatus.OK);
     }
+
+    @RequestMapping("/api/users/profile")
+    public ResponseEntity<UserProfileResponse> editProfile(@RequestBody UserProfileCommand command, BindingResult result){
+        UserProfileResponse response = new UserProfileResponse();
+        if (command.getCrudAction()!= null){
+            if(command.getCrudAction().equals("insert-update")){
+                userProfileValidator.validate(command,result);
+                if(!result.hasErrors()){
+                    UserProfile resultProfile = command.getPojo();
+                    resultProfile.setAvatarImage(fileService.moveFile(resultProfile.getAvatarImage(),command.getUserId().toString()));
+                    resultProfile.setUser(new User(command.getUserId()));
+                    resultProfile = userService.saveOrUpdateProfile(resultProfile);
+                    response.setPojo(resultProfile);
+                }else {
+                    response.parseValidateErrors(result, "Create User Profile Fails");
+                    return new ResponseEntity<UserProfileResponse>(response,HttpStatus.BAD_REQUEST);
+                }
+            }
+        }
+        return new ResponseEntity<UserProfileResponse>(response,HttpStatus.OK);
+    }
+
     @RequestMapping("/api/user")
     public ResponseEntity<Object> getUser(Authentication authentication) {
         if(authentication==null){

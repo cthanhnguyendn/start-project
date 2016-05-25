@@ -6,9 +6,9 @@ import SimpleListComponent from 'container/SimpleListComponent';
 import PrivatePage from 'container/PrivatePage';
 import LoginForm from '../ui/component/LoginForm';
 import privateRoute from 'router/privateRoute';
-import UserManagementPage from '../ui/container/UserManagementPage'
-import UserSystem from '../ui/container/UserSystem'
-import RegisterPage from '../ui/container/RegisterPage'
+import UserManagementPage from '../ui/container/user/UserManagementPage'
+import UserSystem from '../ui/container/user/UserSystem'
+import RegisterPage from '../ui/container/user/RegisterPage'
 
 export default (onLogout) => (
   <Route path="/" name="app" component={App}>

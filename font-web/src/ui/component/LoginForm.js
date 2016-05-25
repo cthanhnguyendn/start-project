@@ -58,4 +58,5 @@ LoginForm.propTypes = {
     resetForm: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired
 }
-export default reduxForm({form:"loginForm",fields})(LoginForm);
+export default reduxForm({form:"loginForm",fields},
+    (state)=>{state.users})(LoginForm);

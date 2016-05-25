@@ -4,6 +4,8 @@ import com.data.core.logic.UserReponsitory;
 import com.data.core.logic.specification.SearchCriteria;
 import com.data.core.logic.specification.UserSpecificationsBuilder;
 import com.data.core.pojo.User;
+import com.data.core.pojo.UserProfile;
+import com.data.core.logic.UserProfileReponsitory;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ public class UserService {
     @Autowired
     UserReponsitory userReponsitory;
     @Autowired
+    UserProfileReponsitory userProfileReponsitory;
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     public Page<User> findAll(List<SearchCriteria> searchCriterias, Pageable pageable) {
@@ -44,11 +48,15 @@ public class UserService {
         return fetchUserInfo(userReponsitory.findByUserId(Id));
     }
     public User findByUserName(String name) {
+
         return fetchUserInfo(userReponsitory.findByUserName(name));
     }
 
     private User fetchUserInfo(User user) {
-        Hibernate.initialize(user.getRoleList());
+        if(user!=null){
+            Hibernate.initialize(user.getRoleList());
+        }else{
+        }
         return user;
     }
 
@@ -62,15 +70,18 @@ public class UserService {
         return userReponsitory.checkDuplicatedByField(field,value);
     }
     public User saveOrUpdate(User pojo) {
+
         if (pojo.getUserId()==null){
             pojo.setPassword(passwordEncoder.encode(pojo.getPassword()));
         }
+
         if(pojo.getUserId()!=null){
             User dbUser = userReponsitory.findByUserId(pojo.getUserId());
             pojo.setPassword(dbUser.getPassword());
             pojo.setCreatedDate(dbUser.getCreatedDate());
             pojo.setModifiedDate(new Timestamp(System.currentTimeMillis()));
         }
+
         return  userReponsitory.save(pojo);
     }
 
@@ -82,4 +93,19 @@ public class UserService {
     }
 
 
+    public UserProfile saveOrUpdateProfile(UserProfile pojo) {
+        if(pojo.getUserProfileId()==null){
+            pojo = userProfileReponsitory.save(pojo);
+            User user = userReponsitory.findByUserId(pojo.getUser().getUserId());
+            user.setUserProfile(pojo);
+            user.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+            userReponsitory.save(user);
+        }else {
+            pojo.setUser(null);
+            pojo = userProfileReponsitory.save(pojo);
+        }
+
+
+        return pojo;
+    }
 }

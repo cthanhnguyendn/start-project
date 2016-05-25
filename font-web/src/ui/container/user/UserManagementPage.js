@@ -3,9 +3,9 @@
  */
 import React from 'react';
 import {connect} from 'react-redux';
-import {loadUser,submitUser} from '../../reducers/users'
-import UserForm from '../component/UserForm'
-import UserTable from '../component/app/table/UserTable'
+import {loadUser,submitUser,innitForm} from '../../../reducers/users'
+import UserForm from '../../component/UserForm'
+import UserTable from '../../component/app/table/UserTable'
 
 var UserManagementPage = React.createClass({
     componentDidMount() {
@@ -27,4 +27,4 @@ var UserManagementPage = React.createClass({
     }
 });
 
-export default connect(state=>state.users, {loadUser})(UserManagementPage)
+export default connect(state=>state.users, {loadUser,innitForm})(UserManagementPage)

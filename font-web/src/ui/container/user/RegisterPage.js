@@ -5,7 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 const fields = ["userName", "password", "repeatPassword"]
-import {register} from '../../reducers/users'
+import {register} from '../../../reducers/users'
 const validate = values => {
     const errors = {}
     if (values.password != values.repeatPassword) {

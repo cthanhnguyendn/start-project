@@ -48,7 +48,8 @@ export class App extends Component {
         const {currentLocale, setLocale} = this.props;
         const menuItems = [
             {label: 'Home', link: '/'},
-            this.props.isAuthenticated ? {label: 'Logout', link: '/logout'} : {label: 'Login', link: '/login'},
+            this.props.isAuthenticated ?
+            {label: 'Logout', link: '/logout'} : {label: 'Login', link: '/login'},
             {label: 'Private page', link: '/private'},
             {label: 'User Management', link: '/usersystem/user'},
             {label: 'Register', link: '/register'}

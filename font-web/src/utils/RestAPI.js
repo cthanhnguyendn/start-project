@@ -4,5 +4,6 @@
 export default {
     users_list:'/api/users/list',
     users_edit:'/api/users/edit',
+    usersProfile_edit:'/api/users/profile',
     users_register:'/api/register'
 }
