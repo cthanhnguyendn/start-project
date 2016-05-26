@@ -71,7 +71,7 @@ export const loadUser = (command)=> {
 }
 export const submitUser = (values, dispatch)=> {
     return new Promise((resolve, reject)=> {
-
+        values.userProfile=null
         dispatch({
             types: [FETCHING, EXCUTED_EDIT_SUCCSESS,REQUEST_FAILD],
             promise: (client)=> {
@@ -165,3 +165,4 @@ export const register = (values, dispatch)=> {
         })
     })
 }
+export const clearUser = {type:EXCUTED_EDIT_SUCCSESS,result:{data:{pojo:{}}}}

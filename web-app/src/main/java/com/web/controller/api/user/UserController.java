@@ -77,7 +77,9 @@ public class UserController {
                 userProfileValidator.validate(command,result);
                 if(!result.hasErrors()){
                     UserProfile resultProfile = command.getPojo();
-                    resultProfile.setAvatarImage(fileService.moveFile(resultProfile.getAvatarImage(),command.getUserId().toString()));
+                    resultProfile.setAvatarImage(
+                            fileService.getUploadFile(resultProfile.getAvatarImage(),
+                                    command.getUserId().toString()));
                     resultProfile.setUser(new User(command.getUserId()));
                     resultProfile = userService.saveOrUpdateProfile(resultProfile);
                     response.setPojo(resultProfile);

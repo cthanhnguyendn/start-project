@@ -45,6 +45,7 @@ public class DowloadController {
         response.setContentType(c);
         IOUtils.copy(is, response.getOutputStream());
         response.flushBuffer();
+        is.close();
 
     }
     @RequestMapping(value = "/upload")
