@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.session.ExpiringSession;
 import org.springframework.session.SessionRepository;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
@@ -71,6 +72,7 @@ public class SecurityConfigJPASession extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").authenticated()
                 .and().csrf().disable()
                 .requestCache().and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").and()
                 //.addFilterBefore(sessionSessionRepositoryFilter, ChannelProcessingFilter.class)
                 .httpBasic().authenticationEntryPoint(customeBasicAuthenticationEntryPoint);
     }

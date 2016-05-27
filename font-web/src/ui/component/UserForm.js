@@ -3,8 +3,7 @@
  */
 import React,{PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
-
-import {submitUser,innitForm,submitUserProfile} from '../../reducers/users'
+import {submitUser,innitForm,submitUserProfile,clearUser} from '../../reducers/users'
 import DropZone from './Common/DropZone'
 
 var axios = require('axios')
@@ -66,7 +65,7 @@ const BaseInfoForm = reduxForm({form:"addUserForm",fields,validate},
                     {submitting?<div className="sk-circle11 sk-circle"></div>:undefined}
                     Submit
                 </button>
-                <button className="btn btn-default" type="button" disabled={submitting} onClick={resetForm} >cancel</button>
+                <button className="btn btn-default" type="button" disabled={submitting} onClick={()=>{this.props.dispatch(clearUser)}} >cancel</button>
             </div>
 
         </form>)
@@ -74,7 +73,7 @@ const BaseInfoForm = reduxForm({form:"addUserForm",fields,validate},
 }))
 const validateProfile = value =>{
     const errors = {}
-    if(!value.user.userId){
+    if(!value.user || !value.user.userId){
         errors.user= {...errors.user,userId:"No User Was Fetch"}
     }
     return errors;
@@ -82,7 +81,7 @@ const validateProfile = value =>{
 
 
 const ProfileForm = reduxForm({form:"profileForm",fields:profileFields,validate:validateProfile},
-    state=>({initialValues: {...state.users.pojo.userProfile,user:{userId:state.users.pojo.userId}}}))(React.createClass({
+    state=>({initialValues: {...(state.users.pojo?state.users.pojo.userProfile:{}),user:{userId:state.users.pojo?state.users.pojo.userId:undefined}}}))(React.createClass({
     propTypes:{
         fields: PropTypes.object.isRequired,
         handleSubmit: PropTypes.func.isRequired,

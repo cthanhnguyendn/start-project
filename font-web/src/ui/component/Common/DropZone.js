@@ -45,7 +45,7 @@ const DropZone = React.createClass({
                             <div>
                                 <img src={file.preview}/>
                                 <div>loading...</div>
-                            </div>)) : this.props.value ? <img src={this.props.value}/> :
+                            </div>)) : this.props.value ? <img style={{width:'100%'}} src={this.props.value}/> :
                         <div>Try dropping some files here, or click to select files to upload.</div>
                     }
                 </Dropzone>

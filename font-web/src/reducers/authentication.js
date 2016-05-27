@@ -104,7 +104,7 @@ export function login(username, password) {
 export function logout() {
   return {
     types: [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: (client) => client.delete('/api/user'),
+    promise: (client) => client.get('/logout'),
     afterSuccess: () => {
       browserHistory.push('login');
     }

@@ -1,6 +1,6 @@
 import React, { Component ,PropTypes} from 'react';
-import Translate from 'react-translate-component';
 import {reduxForm} from 'redux-form';
+import {Link} from 'react-router'
 import {login} from '../../reducers/authentication';
 
 const submit = (values, dispatch) => {
@@ -22,31 +22,31 @@ class LoginForm extends Component {
       const { fields: { username, password }, error, resetForm, handleSubmit, submitting } = this.props
     return (
       <div>
-        <form onSubmit={handleSubmit(submit)} className="pure-form pure-form-aligned">
-            <div>
-                <label>Username</label>
-                <div>
-                    <input type="text" placeholder="Username" {...username}/>
-                </div>
-                {username.touched && username.error && <div>{username.error}</div>}
-            </div>
-            <div>
-                <label>Password</label>
-                <div>
-                    <input type="password" placeholder="Password" {...password}/>
-                </div>
-                {password.touched && password.error && <div>{password.error}</div>}
-            </div>
-            {error && <div>{error}</div>}
-            <div>
-                <button type="submit" disabled={submitting}>
-                    {submitting ? <i/> : <i/>} Log In
-                </button>
-                <button type="button" disabled={submitting} onClick={resetForm}>
-                    Clear Values
-                </button>
-            </div>
-        </form>
+          <div className="middle-box text-center loginscreen animated fadeInDown">
+              <div>
+                  <h3>Welcome to IN+</h3>
+                  <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+                  </p>
+                  <p>Login in. To see it in action.</p>
+                  <form onSubmit={handleSubmit(submit)} onSubmit={handleSubmit(submit)} className="pure-form pure-form-aligned">
+                      <div className={username.touched && username.error?"form-group has-error":"form-group"}>
+                          <input className="form-control" type="text" placeholder="Username" {...username}/>
+                          {username.touched && username.error &&  <label className="error">{username.error}</label>}
+                      </div>
+                      <div className={password.touched && password.error?"form-group has-error":"form-group"}>
+                          <input className="form-control" type="password" placeholder="Password" {...password}/>
+                          {password.touched && password.error &&  <label className="error">{password.error}</label>}
+                      </div>
+                      {error && <label className="error">{error}</label>}
+                      <button disabled={submitting} type="submit" className="btn btn-primary block full-width m-b">{submitting ? <i/> : <i/>}Login</button>
+                      <button disabled={submitting} type="submit" className="btn btn-primary block full-width m-b"  onClick={resetForm}>{submitting ? <i/> : <i/>}Reset</button>
+                      <a href="#"><small>Forgot password?</small></a>
+                      <p className="text-muted text-center"><small>Do not have an account?</small></p>
+                      <Link to="/register" className="btn btn-sm btn-white btn-block" disabled={submitting}>Create an account</Link>
+                  </form>
+                  <p className="m-t"> <small>Inspinia we app framework base on Bootstrap 3 © 2014</small> </p>
+              </div>
+          </div>
       </div>
     );
   }

@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Map;
 public class FileService {
     final String CONTENT_ROOT = "content";
     final String CONTEXT_DEST = "\\content";
+    final String UPLOAD_DIR = "upload";
     @Autowired
     private ResourceLoader resourceLoader;
     public String storeFile(File file,String dir){
@@ -75,16 +77,34 @@ public class FileService {
         return resource.getInputStream();
     }
 
-    public String moveFile(String avatarImage,String dir) {
+    public String getUploadFile(String avatarImage, String dir) {
+        if(!avatarImage.contains(UPLOAD_DIR)){
+           return avatarImage;
+        }
         String fileDir = avatarImage.replaceFirst("\\"+CONTEXT_DEST,"");
-        File oldFile = new File(CONTENT_ROOT+fileDir);
-        String fileName = CONTENT_ROOT+File.separator+dir+File.separator+oldFile.getName();
-        String outName = CONTEXT_DEST+File.separator+dir+File.separator+oldFile.getName();
-        try {
-            Files.move(Paths.get(CONTENT_ROOT+fileDir),Paths.get(fileName));
-            return outName;
-        } catch (IOException e) {
+        String oldUploadFile = CONTENT_ROOT+fileDir;
+        String name = Paths.get(oldUploadFile).getFileName().toString();
+        String fileName = CONTENT_ROOT+File.separator+dir+File.separator+name;
+        String outName = CONTEXT_DEST+File.separator+dir+File.separator+name;
+        if(!Files.exists(Paths.get(CONTENT_ROOT+File.separator+dir))){
+            try {
+                Files.createDirectory(Paths.get(CONTENT_ROOT+File.separator+dir));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (Files.exists(Paths.get(oldUploadFile))){
+            try {
+                System.out.println("moving file");
+                Files.move(Paths.get(oldUploadFile),Paths.get(fileName), StandardCopyOption.REPLACE_EXISTING);
+                return outName;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
             return avatarImage;
         }
+        return outName;
     }
 }
