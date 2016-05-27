@@ -5,7 +5,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {loadUser,submitUser,innitForm} from '../../../reducers/users'
 import UserForm from '../../component/UserForm'
-import UserTable from '../../component/app/table/UserTable'
+import UserTable from '../../component/Common/DataTable'
 
 var UserManagementPage = React.createClass({
     componentDidMount() {
@@ -17,7 +17,7 @@ var UserManagementPage = React.createClass({
                 <div className="row">
                     <div className="ibox">
                         <div className="ibox-content">
-                            <UserTable data={this.props.content} {...this.props}/>
+                            <UserTable list={this.props.content} {...this.props}/>
                             <UserForm loadUser={this.props.loadUser}/>
                         </div>
                     </div>

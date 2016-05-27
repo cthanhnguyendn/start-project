@@ -1,0 +1,68 @@
+.FlexTable {
+  width: 100%;
+  margin-top: 15px;
+}
+.headerRow,
+.evenRow,
+.oddRow {
+  border-bottom: 1px solid #e0e0e0;
+}
+.oddRow {
+  background-color: #fafafa;
+}
+.headerColumn {
+  text-transform: none;
+}
+.exampleColumn {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkboxLabel {
+  margin-left: .5rem;
+}
+.checkboxLabel:first-of-type {
+  margin-left: 0;
+}
+
+.noRows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  color: #bdbdbd;
+}
+
+.FlexTable__rowColumn {
+  border-top: 1px solid #e7eaec;
+  line-height: 1.42857;
+  padding: 8px;
+  vertical-align: top;
+  border: 1px solid #e7e7e7;
+}
+.FlexTable__row.selected{
+  background-color: #0b97c4;
+  color: white;
+  font-weight: 600;
+}
+.FlexTable__headerColumn:first-of-type, .FlexTable__rowColumn:first-of-type{
+  margin-left: 0px;
+}
+.FlexTable__headerColumn, .FlexTable__rowColumn{
+  margin-right: 0px;
+}
+.Grid.FlexTable__Grid{
+  font-size: 16px;
+}
+.FlexTable__headerColumn{
+  border: 1px solid #e7e7e7;
+  line-height: 1.42857;
+  padding: 8px;
+  vertical-align: top;
+}

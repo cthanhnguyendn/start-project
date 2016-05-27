@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getSession } from 'reducers/authentication';
 import { setLocale } from 'reducers/locale';
-import counterpart from 'counterpart';
 import { locales } from 'config/translation';
+import 'react-virtualized/styles.css';
 
 //import '../../assets/stylus/main.styl';
 
@@ -52,7 +52,7 @@ export class App extends Component {
             {label: 'Logout', link: '/logout'} : {label: 'Login', link: '/login'},
             {label: 'Private page', link: '/private'},
             {label: 'User Management', link: '/usersystem/user'},
-            {label: 'Register', link: '/register'}
+            this.props.isAuthenticated ?{label:"My Profile",link:"/profile"}:{label: 'Register', link: '/register'}
         ];
 
         return (

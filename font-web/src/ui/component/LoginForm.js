@@ -1,5 +1,4 @@
 import React, { Component ,PropTypes} from 'react';
-import Translate from 'react-translate-component';
 import {reduxForm} from 'redux-form';
 import {Link} from 'react-router'
 import {login} from '../../reducers/authentication';

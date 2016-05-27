@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var jeet = require('jeet');
 var nib = require('nib');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     // or devtool: 'eval' to debug issues with compiled output:
@@ -27,6 +28,9 @@ module.exports = {
                 NODE_ENV: JSON.stringify('development')
             }
         }),
+        new ExtractTextPlugin("css/bundle.css", {
+            allChunks: true
+        })
     ],
     module: {
         loaders: [{
@@ -40,6 +44,10 @@ module.exports = {
             test: /\.json/,
             loaders: ['json-loader']
         },
+            {
+                test: /\.css/,
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+            }
         ],stylus: {
             use: [jeet(), nib()]
         }

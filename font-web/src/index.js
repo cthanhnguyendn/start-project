@@ -11,13 +11,13 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import { Router } from 'react-router';
 import getRoutes from 'router/router';
-import { registerLocales } from 'config/translation';
+//import { registerLocales } from 'config/translation';
 
 const devTools = process.env.NODE_ENV === 'development' ? <DevTools /> : null;
 
 const store = initStore();
 const history = syncHistoryWithStore(browserHistory, store);
-registerLocales(store);
+//registerLocales(store);
 
 const actions = bindActionCreators({redirectToLoginWithMessage, logout}, store.dispatch);
 setupAxiosInterceptors(() => actions.redirectToLoginWithMessage('login.error.unauthorized'));

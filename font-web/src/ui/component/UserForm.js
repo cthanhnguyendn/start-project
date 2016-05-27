@@ -3,7 +3,6 @@
  */
 import React,{PropTypes} from 'react';
 import {reduxForm} from 'redux-form';
-
 import {submitUser,innitForm,submitUserProfile,clearUser} from '../../reducers/users'
 import DropZone from './Common/DropZone'
 
