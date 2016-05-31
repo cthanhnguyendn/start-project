@@ -1,6 +1,5 @@
 package com.web.config.security.jpa;
 
-import com.data.core.logic.imp.JPASessionRepository;
 import com.web.config.security.CustomeBasicAuthenticationEntryPoint;
 import com.web.config.security.JPAUserdetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.session.ExpiringSession;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
-import org.springframework.session.web.http.SessionRepositoryFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -39,16 +33,6 @@ public class SecurityConfigJPASession extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public HttpSessionStrategy httpSessionStrategy() {
-
-        return new HeaderHttpSessionStrategy();
-    }
-
-    @Bean
-    public SessionRepository<ExpiringSession> sessionRepository() {
-        return new JPASessionRepository(10);
-    }
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {

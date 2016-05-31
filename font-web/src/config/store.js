@@ -10,9 +10,7 @@ const middlewares = process.env.NODE_ENV === 'development' ?
   [applyMiddleware(promiseMiddleware)];
 
 var initialize = (initialState = {}) => {
-
   const store = createStore(reducer, initialState, compose(...middlewares));
-
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {

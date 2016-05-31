@@ -9,8 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.savedrequest.NullRequestCache;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
+
 
 //@Configuration
 //@EnableWebSecurity
@@ -37,10 +36,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.requestCache(new NullRequestCache())
 				.and()
 				.httpBasic().authenticationEntryPoint(customeBasicAuthenticationEntryPoint);
-	}
-
-	@Bean
-	public HttpSessionStrategy httpSessionStrategy() {
-		return new HeaderHttpSessionStrategy();
 	}
 }
